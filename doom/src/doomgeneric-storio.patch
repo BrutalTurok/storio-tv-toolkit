@@ -1,0 +1,48 @@
+diff --git a/doomgeneric/i_sound.c b/doomgeneric/i_sound.c
+index c80a9d1..6b0eb30 100644
+--- a/doomgeneric/i_sound.c
++++ b/doomgeneric/i_sound.c
+@@ -18,7 +18,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#if defined(FEATURE_SOUND) && !defined(__DJGPP__)
++#if defined(FEATURE_SOUND) && !defined(__DJGPP__) && !defined(DG_STORIO)
+ #include <SDL_mixer.h>
+ #endif
+ 
+diff --git a/doomgeneric/m_menu.c b/doomgeneric/m_menu.c
+index 6df9655..71b95ce 100644
+--- a/doomgeneric/m_menu.c
++++ b/doomgeneric/m_menu.c
+@@ -2120,6 +2120,12 @@ void M_Init (void)
+ 	EpiDef.numitems--;
+     }
+ 
++    // Storio TV: if the WAD has no episode 4 graphic, do not show it (avoids a crash).
++    if (EpiDef.numitems > 3 && W_CheckNumForName("M_EPI4") < 0)
++    {
++	EpiDef.numitems = 3;
++    }
++
+     //opldev = M_CheckParm("-opldev") > 0;
+ }
+ 
+diff --git a/doomgeneric/m_misc.c b/doomgeneric/m_misc.c
+index 54b2613..ce8a6f1 100644
+--- a/doomgeneric/m_misc.c
++++ b/doomgeneric/m_misc.c
+@@ -180,8 +180,12 @@ char *M_TempFile(char *s)
+     }
+ #else
+     // In Unix, just use /tmp.
+-
++#ifdef DG_STORIO
++    // Storio TV (Android): /tmp does not exist; use the current directory (app data).
++    tempdir = ".";
++#else
+     tempdir = "/tmp";
++#endif
+ #endif
+ 
+     return M_StringJoin(tempdir, DIR_SEPARATOR_S, s, NULL);

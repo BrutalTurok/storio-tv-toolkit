@@ -1,0 +1,40 @@
+# DOOM button map for the Storio TV
+# Copy this file to the console with:  adb push doom_buttons.txt /sdcard/doom_buttons.txt
+# (Install-DOOM.ps1 and Play-DOOM.ps1 do this for you.)
+# Format:  Android_key_code=action[,second_action]
+# To find the code of each controller button, run "Show-Buttons.ps1" and press the buttons.
+# Lines starting with r are VTech controller buttons (shown as "VTech button rNNN").
+# Actions: up down left right fire use run strafe strafe_left strafe_right
+#          menu enter map yes no next_weapon prev_weapon 1 2 3 4 5 6 7 pause backspace
+# (The old Spanish names and the old file name /sdcard/doom_botones.txt still work.)
+19=up
+20=down
+21=left
+22=right
+23=fire,enter
+66=fire,enter
+96=fire,enter
+97=use,yes
+99=run
+100=next_weapon
+102=strafe_left
+103=strafe_right
+104=prev_weapon
+105=map
+108=menu
+109=map
+82=menu
+4=menu
+# --- VTech controller ---
+r303=fire,enter
+r399=use,yes
+r398=next_weapon
+r138=menu
+r553=map
+r544=run
+r546=prev_weapon
+# --- Controller wheel: strafe (clockwise = right) ---
+# wheel=180     how long each click lasts in ms (higher = slides further per click)
+# wheel=invert  if it goes the wrong way
+# wheel=off     to disable it
+wheel=180
